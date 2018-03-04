@@ -1,0 +1,23 @@
+﻿@model HotelReservationSystem1.Models.Hotel.Room
+
+@{
+    ViewBag.Title = "Remove Room";
+}
+
+<h2>Remove Room</h2>
+
+<h3>Are you sure you want to remove this room?</h3>
+<hr />
+<div>
+@Html.Partial("_RoomDetailsPartial")
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a href="@Request.UrlReferrer.AbsoluteUri" class="btn btn-default">Back</a>
+        </div>
+    }
+</div>

@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Hotel.com</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Hotel.Com", "Index", "Home", null, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (User.IsInRole("CanEditUser"))
+                    {
+                        <li>@Html.ActionLink("Users", "Index", "Account")</li>
+                    }
+                    @if (User.IsInRole("CanEditGroup"))
+                    {
+                        <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
+                    }
+                    @if (User.IsInRole("CanEditRole"))
+                    {
+                        <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+                    }
+                    @if (User.IsInRole("Is_Save"))
+                    {
+                        <li>@Html.ActionLink("Room Master", "Create", "Rooms")</li>
+                    }
+                    <li>@Html.ActionLink("Rooms", "Index", "Rooms")</li>
+                    <li>@Html.ActionLink("Bookings", "Index", "Bookings")</li>
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="text-center">
+            <p>&copy; @DateTime.Now.Year - <a href="#">Hotel.com</a></p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

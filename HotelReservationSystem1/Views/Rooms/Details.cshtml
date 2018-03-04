@@ -1,0 +1,20 @@
+﻿@model HotelReservationSystem1.Models.Hotel.Room
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Room Details</h2>
+<hr />
+
+<div>
+    @Html.Partial("_RoomDetailsPartial")
+</div>
+<p>
+    @if (User.IsInRole("Is_Update"))
+    {
+        @Html.ActionLink("Edit", "EditRoom", new { id = Model.Id }, new { @class = "btn btn-primary" }) @:|
+    }
+
+    <a href="@Request.UrlReferrer.AbsoluteUri" class="btn btn-default">Back</a>
+</p>

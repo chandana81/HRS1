@@ -1,0 +1,37 @@
+﻿@model IEnumerable<HotelReservationSystem1.Models.Hotel.Room>
+
+<div class="form-horizontal">
+    <div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="CheckInDate">Check-In Date</label>
+            <div class="col-md-10">
+                <input type="date" name="CheckInDate" class="form-control" required id="CheckInDate" />
+                @Html.ValidationMessage("CheckInDate")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="CheckOutDate">Check-Out Date</label>
+            <div class="col-md-10">
+                <input type="date" name="CheckOutDate" class="form-control" required id="CheckOutDate" height="0" />
+                @Html.ValidationMessage("CheckOutDate")
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Room No.</label>
+        <div class="col-md-10 form-inline">
+            
+            @Html.DropDownList("RoomId", new SelectList(Model.OrderBy(r => r.Number).Select(r => r),
+           "Id", "Number"), "-- Select Room --", new { @class = "form-control", required = "required"})
+            <label class="control-label" id="roomRate"></label>
+            <input type="submit" value="Add" class="btn btn-primary" />
+        </div>
+        <div class="col-md-offset-2 col-md-10">@Html.ValidationMessage("RoomId")</div>
+    </div>
+</div>
+<div class="invisible">
+    @Html.DropDownList("RoomId2", new SelectList(Model.OrderBy(r => r.Number).Select(r => r),
+                             "Number", "Rate"), "-- Select Room --")
+</div>

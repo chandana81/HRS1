@@ -1,0 +1,31 @@
+﻿@model HotelReservationSystem1.ViewModels.RoomVM
+
+@{
+    ViewBag.Title = "Room Master";
+}
+
+@if (!string.IsNullOrWhiteSpace((string)TempData["Message"]))
+{
+    <p class="alert alert-success" style="margin-top:5px;">
+        @TempData["Message"]
+    </p>
+}
+
+<div class="panel panel-primary" style="margin-top:5px;">
+    <div class="panel-heading">Edit Room</div>
+    <div class="panel-body">
+        @Html.Partial("_RoomEditPartial")
+    </div>
+</div>
+
+<hr />
+<div class="panel panel-primary">
+    <div class="panel-heading">Rooms List</div>
+    <div class="panel-body">
+        @Html.Partial("_RoomsListPartial", TempData["RoomsList"])
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Rooms";
+}
+@if (!string.IsNullOrWhiteSpace((string)TempData["Message"]))
+{
+    <p class="alert alert-success" style="margin-top:5px;">
+        @TempData["Message"]
+    </p>
+}
+
+@if (User.IsInRole("Is_Save"))
+{
+    <div style="margin-top:5px;">
+        @Html.ActionLink("Add New Room", "Create", "Rooms", null, new { @class = "btn btn-default" })
+    </div>
+}
+
+<div class="panel panel-primary" style="margin-top:5px;">
+    <div class="panel-heading">Rooms List</div>
+    <div class="panel-body">
+        @Html.Partial("_RoomsListPartial")
+    </div>
+</div>
+
+
+

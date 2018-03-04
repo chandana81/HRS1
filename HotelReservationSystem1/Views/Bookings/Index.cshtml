@@ -1,0 +1,85 @@
+﻿@model HotelReservationSystem1.ViewModels.ReservationsVM
+
+@{
+    ViewBag.Title = "Booking";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-warning">@TempData["Message"]</div>
+}
+
+@using (Html.BeginForm("RetrieveBooking", "Bookings", FormMethod.Get))
+{
+    <div class="panel panel-primary panel-bottomless panel-top5">
+        <div class="panel-heading">Retrive Booking</div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Reservation #</label>
+                    <div class="col-md-10">
+                        <input type="number" class="form-control" name="reservationId" id="Id" required maxlength="10" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Last Name</label>
+                    <div class="col-md-10 form-inline">
+                        <input type="text" class="form-control uppercase" name="lastName" id="LastName" required maxlength="50" />
+                        <input type="submit" value="Retrive Booking" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("AddBooking", "Bookings",
+    new { RoomReservationId = Model.RoomReservations.Id, GuestId = Model.RoomReservations.GuestId }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="panel panel-primary panel-bottomless panel-top5">
+        <div class="panel-heading">Guest Information</div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                @if (Model.RoomReservations.Id != 0)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RoomReservations.Id,
+                        htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.RoomReservations.Id,
+                            new { @class = "form-control", disabled = "disabled" })
+                            @Html.ValidationMessageFor(model => model.RoomReservations.Id)
+                        </div>
+                    </div>
+                }
+                @Html.Partial("_GuestDetailsPartial", Model.Guest)
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-primary panel-bottomless">
+        <div class="panel-heading">Check-In Info.</div>
+        <div class="panel-body">
+            @Html.Partial("_CheckInOutInfoPartial", Model.Rooms)
+        </div>
+    </div>
+}
+
+@if (Model.ReservationDetails.Count() > 0)
+{
+    <div class="panel panel-primary panel-bottomless">
+        <div class="panel-heading">Booking Info.</div>
+        <div class="panel-body">
+            @Html.Partial("_AddedRoomsPartial", Model.ReservationDetails)
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bookings")    
+}

@@ -1,0 +1,20 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    ViewBag.Title = "Error";
+}
+<h1 class="text-danger">Oops !!! There was an Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request. Please review your request again. Thank you.</h2>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        <h4>@TempData["Error"]</h4>
+    </div>
+}
+
+<hr />
+<p class="text-center">
+    <a href="@Request.UrlReferrer" class="btn btn-default">Back</a>
+</p>
+
+
+
